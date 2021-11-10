@@ -2,7 +2,11 @@ let puzzles = document.querySelectorAll('.puzzles');
 let boxes = document.querySelectorAll('.box');
 let puzImg = document.querySelectorAll('.puzImg');
 
+let block = document.querySelector('.boxes'); //!
+
 let dragItem = null;
+
+let count = boxes.length; //!
 
 puzImg.forEach(img => {
     img.addEventListener('dragstart', dragStart);
@@ -21,6 +25,7 @@ boxes.forEach(box => {
 
 function dragStart(e) {
     dragItem = e.target;
+    e.dataTransfer.setData('id', e.target.dataset.target) //!
 }
 
 function dragEnd(e) {
@@ -43,8 +48,19 @@ function dragLeave(e) {
 function drop(e) {
     e.preventDefault();
     e.target.classList.remove('drop');
-
     if (e.target.tagName !== 'IMG') {
         e.target.append(dragItem);
+        if (getCount() === count) {
+            if (e.target.id === e.dataTransfer.getData('id')) {
+                block.style.background = '#284355';
+            }
+            else {
+                block.style.background = '';
+            }
+        }
     }
+}
+
+function getCount() {
+    return document.querySelectorAll('.box>img').length;
 }
