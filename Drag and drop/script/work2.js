@@ -54,9 +54,9 @@ function drop(e) {
             if (e.target.id === e.dataTransfer.getData('id')) {
                 block.style.background = '#284355';
             }
-            else {
-                block.style.background = '';
-            }
+        }
+        else {
+            block.style.background = '';
         }
     }
 }
